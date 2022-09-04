@@ -1,0 +1,12 @@
+{
+  "name": "service-files",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node --inspect=0.0.0.0:9229 --experimental-specifier-resolution=node --loader ts-node/esm  server.ts",
+    "watch": "nodemon -L --watch '**' --ext 'ts,json' --exec 'npm start'",
+    "tsc": "tsc --build",
+    "prod": "node --experimental-specifier-resolution=node build/server/service-files/server.js"
+  }
+}

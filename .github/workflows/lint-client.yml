@@ -1,0 +1,12 @@
+name: Lint client
+on:
+  workflow_call:
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: npm --prefix ./client ci
+      - run: npm --prefix ./client run build
+      - run: npm --prefix ./client run lint

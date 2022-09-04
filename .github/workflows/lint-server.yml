@@ -1,0 +1,14 @@
+name: Lint server
+on:
+  workflow_call:
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: npm --prefix ./server ci
+      - run: npm --prefix ./server run lint
+      - run: npm --prefix ./server run tsc --workspace=service-users
+      - run: npm --prefix ./server run tsc --workspace=service-email
+      - run: npm --prefix ./server run tsc --workspace=service-files

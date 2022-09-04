@@ -1,0 +1,85 @@
+version: '3'
+services:
+  gateway:
+    container_name: gcp-gateway
+    build: .
+    working_dir: /gateway
+    volumes:
+      - ./gateway:/gateway
+      - ./@types:/@types
+    command: sh -c "npm run watch"
+    environment:
+      PORT: 7000
+      NODE_ENV: development
+      COOKIE_SECRET: cookie-secret
+      COOKIE_DOMAIN: localhost
+      CORS_DOMAIN: http://localhost:3000
+      EMAIL_SERVICE_URI: http://service-email:3000
+      FILES_SERVICE_URI: http://service-files:3000
+      USERS_SERVICE_URI: http://service-users:3000
+    ports:
+      - '7000:7000'
+      - '9229:9229'
+
+  service-email:
+    container_name: gcp-service-email
+    build: .
+    working_dir: /server
+    volumes:
+      - ./server:/server
+      - ./@types:/@types
+    command: sh -c "npm run watch --workspace=service-email"
+    environment:
+      PORT: 3000
+      NODE_ENV: development
+      EMAIL_API_KEY: xxxx # SendGrid API key - please use Your own :)
+      EMAIL_FROM: email@homeit.app # Email address from which emails will be sent - please use Your own :)
+      EMAIL_NAME: Application
+      CORS_DOMAIN: http://localhost:3000
+      FILES_SERVICE_URI: http://service-files:3000
+
+  service-files:
+    container_name: gcp-service-files
+    build: .
+    working_dir: /server
+    volumes:
+      - ./server:/server
+      - ./@types:/@types
+    command: sh -c "npm run watch --workspace=service-files"
+    environment:
+      PORT: 3000
+      NODE_ENV: development
+      BUCKET_NAME: bucket-name
+      POSTGRES: postgresql://postgres:12345@/files?host=db-files
+
+  db-files:
+    container_name: gcp-db-files
+    image: postgres:14.1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: files
+
+  service-users:
+    container_name: gcp-service-users
+    build: .
+    depends_on:
+      - db-users
+    working_dir: /server
+    volumes:
+      - ./server:/server
+      - ./@types:/@types
+    command: sh -c "npm run watch --workspace=service-users"
+    environment:
+      PORT: 3000
+      NODE_ENV: development
+      POSTGRES: postgresql://postgres:12345@/users?host=db-users
+      EMAIL_SERVICE_URI: http://service-email:3000
+
+  db-users:
+    container_name: gcp-db-users
+    image: postgres:14.1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: users

@@ -1,0 +1,26 @@
+# import File from 'files.graphql'
+
+# import UserSession from 'users.graphql'
+# import User from 'users.graphql'
+# import UpdateUserInput from 'users.graphql'
+
+scalar Void
+
+type Query {
+  files(targetId: ID): [File!]
+
+  userSession: UserSession!
+  users: [User!]!
+}
+
+type Mutation {
+  logout: Void
+  sendToken(email: String!, type: String!): Void
+
+  deleteFile(targetId: ID!, fileId: ID!, filename: String!): File!
+
+  insertUserSession(email: String!, token: String!): UserSession!
+
+  toggleUser(id: ID!): User!
+  updateUser(input: UpdateUserInput): User!
+}

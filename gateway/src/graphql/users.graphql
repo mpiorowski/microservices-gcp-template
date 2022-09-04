@@ -1,0 +1,24 @@
+type User {
+  id: ID!
+  active: Boolean!
+  email: String!
+  role: String!
+
+  lastLogin: String
+}
+
+type UserSession {
+  id: ID!
+  userId: ID!
+  expiredAt: String!
+  user: User
+
+  created: String!
+  updated: String
+}
+
+input UpdateUserInput {
+  id: ID!
+  email: String!
+  role: String!
+}

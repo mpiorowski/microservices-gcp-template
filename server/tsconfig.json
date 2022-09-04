@@ -1,0 +1,4 @@
+{
+  "extends": "@mpiorowski/utils/tsconfig.json",
+  "include": ["../@types", "./@utils", "**/*.ts", "**/*.tsx"]
+}

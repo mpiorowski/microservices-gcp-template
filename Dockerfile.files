@@ -1,0 +1,20 @@
+FROM node:18-alpine AS builder
+
+COPY @types @types
+
+WORKDIR /server
+
+COPY server/tsconfig.json tsconfig.json
+COPY server/package.json package.json
+COPY server/@utils @utils
+COPY server/service-files/package.json service-files/package.json
+
+RUN npm install
+
+COPY server/service-files service-files
+
+RUN npm run tsc --workspace=service-files
+
+EXPOSE 3000
+
+CMD npm run prod --workspace=service-files
