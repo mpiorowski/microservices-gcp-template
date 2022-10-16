@@ -7,8 +7,6 @@ Microservices Google Cloud Platform template using:
 - [PostgreSQL](https://www.postgresql.org/) (Database)
 - [Docker](https://www.docker.com/) (Containerization)
 
-Let's hope this will be useful for someone :grin:
-
 This template is using my another library - [SvelteInit](https://github.com/mpiorowski/svelte-init), feel free to check it out.
 
 ## Architecture
