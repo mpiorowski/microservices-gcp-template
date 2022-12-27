@@ -51,7 +51,3 @@ docker-compose up
 ```bash
 npm --prefix ./client start
 ```
-
-## Production deployment
-
-IN PROGRESS
