@@ -7,8 +7,6 @@ Microservices Google Cloud Platform template using:
 - [PostgreSQL](https://www.postgresql.org/) (Database)
 - [Docker](https://www.docker.com/) (Containerization)
 
-This template is using my another library - [SvelteInit](https://github.com/mpiorowski/svelte-init), feel free to check it out.
-
 Check my others similar projects:
 - [Rust with SvelteKit using gRPC](https://github.com/mpiorowski/rust-grpc)
 - [Go with SvelteKit using gRPC](https://github.com/mpiorowski/go-svelte-grpc)
